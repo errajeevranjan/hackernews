@@ -53,6 +53,7 @@ class Search extends Component {
         cancelToken: this.cancel.token,
       })
       .then((res) => {
+        console.log("response", res.data.hits);
         const resultNotFoundMsg = !res.data.hits.length
           ? "There are no more search results. Please try a new search."
           : "";
@@ -75,22 +76,22 @@ class Search extends Component {
   render() {
     return (
       <div className='container'>
-        <div class='searchboxdiv'>
-          <div class='orange p-2'>
-            <div class='row'>
-              <div class='col-lg-2 '>
+        <div className='searchboxdiv'>
+          <div className='orange p-2'>
+            <div className='row'>
+              <div className='col-lg-2 '>
                 <h5 className='username'>Welcome, Eviilraj</h5>
               </div>
-              <div class='col-lg-10 '>
-                <div class='input-group mb-2'>
-                  <div class='input-group-prepend'>
-                    <div class='input-group-text'>
+              <div className='col-lg-10 '>
+                <div className='input-group mb-2'>
+                  <div className='input-group-prepend'>
+                    <div className='input-group-text'>
                       <i className='fas fa-search search-icon'></i>
                     </div>
                   </div>
                   <input
                     type='text'
-                    class='form-control'
+                    className='form-control'
                     id='inlineFormInputGroup'
                     placeholder='Search stories by title, url or author'
                     onChange={(event) => this.handleInputChange(event)}
@@ -101,7 +102,7 @@ class Search extends Component {
           </div>
         </div>
 
-        <div class='resultdisplaydiv'>
+        <div className='resultdisplaydiv p-3'>
           {this.state.results.map((results, index) => {
             return (
               <div key={index}>
@@ -113,12 +114,22 @@ class Search extends Component {
                   )
                 </h6>
 
-                <small>{results.points} points, | </small>
-                <a href={results.author}>{results.author} | </a>
-                <small>{moment(results.created_at).fromNow()} |</small>
+                <a
+                  href={`https://news.ycombinator.com/item?id=${results.objectID}`}>
+                  {results.points} points, |{" "}
+                </a>
+                <a
+                  href={`https://news.ycombinator.com/user?id=${results.author}`}>
+                  {results.author} |{" "}
+                </a>
+                <a
+                  href={`https://news.ycombinator.com/item?id=${results.objectID}`}>
+                  {moment(results.created_at).fromNow()} |
+                </a>
                 <small>
                   {" "}
-                  <a href={results.num_comments}>
+                  <a
+                    href={`https://news.ycombinator.com/item?id=${results.objectID}`}>
                     {results.num_comments} comments
                   </a>{" "}
                 </small>

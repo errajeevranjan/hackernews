@@ -8,3 +8,9 @@
 .resultdisplaydiv {
   background-color: #f6f6ef;
 }
+a {
+  color: #8a8a89;
+}
+a:hover {
+  color: #8a8a89;
+}
